@@ -82,7 +82,7 @@ namespace Library.Services
 
         public string getType(int id)
         {
-            throw new NotImplementedException();
+            return "type";
         }
     }
 }
