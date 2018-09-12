@@ -1,0 +1,67 @@
+﻿@model Library.Models.ViewModels.AssetDetailModel
+<div class="container">
+    <div class="page-header clearfix detailHeading">
+        <h2 class="text-muted">Library Item Detail</h2>
+
+    </div>
+</div>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                <img class="detailImage" src="@Model.ImageUrl" />
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <p>@Model.Title</p>
+            <p>@Model.AuthorOrDirector</p>
+            <p>@Model.Status</p>
+            <p>@Model.Type</p>
+            <p>@Model.CurrentLocation</p>
+
+            @if (Model.Status == "Lost")
+            {
+                <p>This item is Lost</p>
+                <p><a class="btn btn-lg btn-danger" role="button" asp-controller="Catalog" asp-action="MarkFound" asp-route-id="@Model.Id"> Item Found</a></p>
+
+            }
+
+
+            @if (Model.Status == "Checked Out")
+            {
+                <p>@Model.PatronName</p>
+                <p><a class="btn btn-lg btn-success" role="button" asp-controller="Catalog" asp-action="ChcckIn" asp-route-id="@Model.Id"> Check in</a></p>
+                <p><a class="btn btn-lg btn-warning" role="button" asp-controller="Catalog" asp-action="Hold" asp-route-id="@Model.Id"> Hold</a></p>
+
+            }
+            @if (Model.Status == "Available")
+            {
+                <p><a class="btn btn-lg btn-info" role="button" asp-controller="Catalog" asp-action="Checkout" asp-route-id="@Model.Id"> Check out</a></p>
+            }
+
+
+        </div>
+        <div class="col-md-4">
+            <table>
+                <tr>
+                    <td>ISBN: </td>
+                    <td>@Model.ISBN </td>
+
+                </tr>
+                <tr>
+                    <td>Call Number: </td>
+                    <td>@Model.DeweyCallNumber </td>
+
+                </tr>
+                <tr>
+                    <td>Cost: </td>
+                    <td>@Model.Cost </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
