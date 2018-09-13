@@ -238,5 +238,31 @@ namespace Library.Services
 
             _context.SaveChanges();
         }
+
+        public string getCurrentCheckoutPatron(int assetId)
+        {
+            var checkout = GetCheckoutByAssetId(assetId);
+
+            if (checkout ==null)
+            {
+                return "Not Checked Out";
+            }
+            else
+            {
+                var cardId = checkout.LibraryCard.Id;
+                var patron = _context.Patrons
+                    .Include(p => p.LibraryCard)
+                    .FirstOrDefault(p => p.LibraryCard.Id == cardId);
+                return patron.FirstName + " " + patron.LastName;
+            }
+        }
+
+        private Checkout GetCheckoutByAssetId(int assetId)
+        {
+            return _context.Checkouts
+                .Include(ch => ch.LibraryAsset)
+                .Include(ch => ch.LibraryCard)
+                .FirstOrDefault(ch => ch.LibraryAsset.Id == assetId);
+        }
     }
 }
