@@ -12,7 +12,7 @@ namespace Library.Services
         Checkout GetById(int id);
         void Add(Checkout checkout);
         void CheckOutItem(int assetId, int libraryCardId);
-        void CheckInItem(int assetId, int libraryCardId);
+        void CheckInItem(int assetId);
         IEnumerable<CheckoutHistory> GetCheckoutHistories(int id);
         Checkout GetLatestCheckout(int assetId);
         String getCurrentCheckoutPatron(int assetId);

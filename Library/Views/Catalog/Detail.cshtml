@@ -40,7 +40,7 @@
                     <p><a class="btn btn-lg btn-danger" role="button" asp-controller="Catalog" asp-action="MarkLost" asp-route-id="@Model.Id">Mark Item Lost</a></p>
                 }
 
-                else
+                @if (@Model.Status == "Lost")
                 {
                     <p>This item has been lost. It cannot be checked out.</p>
                     <p><a class="btn btn-lg btn-success" role="button" asp-controller="Catalog" asp-action="MarkFound" asp-route-id="@Model.Id">Mark Item Found</a></p>
