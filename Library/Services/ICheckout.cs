@@ -16,6 +16,7 @@ namespace Library.Services
         IEnumerable<CheckoutHistory> GetCheckoutHistories(int id);
         Checkout GetLatestCheckout(int assetId);
         String getCurrentCheckoutPatron(int assetId);
+        bool IsCheckedOut(int assetId);
 
         void PlaceHold(int assetId, int libraryCardId);
         String GetCurrentHoldPatronName(int holdId);

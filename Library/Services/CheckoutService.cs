@@ -13,7 +13,7 @@ namespace Library.Services
         {
             _context = context;
         }
-            
+
         public void Add(Checkout checkout)
         {
             _context.Add(checkout);
@@ -24,7 +24,7 @@ namespace Library.Services
         {
             var now = DateTime.Now;
             var item = _context.LibraryAssets.FirstOrDefault(a => a.Id == assetId);
-    
+
             //revmove existing checkouts
             RemoveExistingCheckouts(assetId);
             //closse checkout history
@@ -59,7 +59,7 @@ namespace Library.Services
 
         public void CheckOutItem(int assetId, int libraryCardId)
         {
-            if (isCheckedOut(assetId))
+            if (IsCheckedOut(assetId))
             {
                 return;
             }
@@ -77,7 +77,7 @@ namespace Library.Services
                 LibraryCard = libraryCard,
                 Since = now,
                 Until = GetDefaultCheckoutTime(now)
-        };
+            };
 
             _context.Add(checkout);
 
@@ -91,7 +91,7 @@ namespace Library.Services
             _context.Add(checkoutHis);
 
             _context.SaveChanges();
-            
+
 
         }
 
@@ -100,7 +100,7 @@ namespace Library.Services
             return now.AddDays(30);
         }
 
-        private bool isCheckedOut(int assetId)
+        public bool IsCheckedOut(int assetId)
         {
             var isCheckOut = _context.Checkouts.Where(co => co.LibraryAsset.Id == assetId).Any();
             return isCheckOut;
@@ -113,7 +113,7 @@ namespace Library.Services
 
         public Checkout GetById(int id)
         {
-            return _context.Checkouts.FirstOrDefault(checkout => checkout.Id==id);
+            return _context.Checkouts.FirstOrDefault(checkout => checkout.Id == id);
         }
 
         public IEnumerable<CheckoutHistory> GetCheckoutHistories(int id)
@@ -162,15 +162,15 @@ namespace Library.Services
 
         public void MarkFound(int assetId)
         {
-            
 
-            UpdateAssetStatus(assetId,"Available");
+
+            UpdateAssetStatus(assetId, "Available");
 
             RemoveExistingCheckouts(assetId);
 
             RemoveCheckoutHistory(assetId);
-            
-            
+
+
             _context.SaveChanges();
 
         }
@@ -223,7 +223,7 @@ namespace Library.Services
             var asset = _context.LibraryAssets.FirstOrDefault(a => a.Id == assetId);
             var card = _context.LibraryCards.FirstOrDefault(lc => lc.Id == libraryCardId);
 
-            if(asset.Status.Name == "Available")
+            if (asset.Status.Name == "Available")
             {
                 UpdateAssetStatus(assetId, "On Hold");
             }
@@ -243,7 +243,7 @@ namespace Library.Services
         {
             var checkout = GetCheckoutByAssetId(assetId);
 
-            if (checkout ==null)
+            if (checkout == null)
             {
                 return "Not Checked Out";
             }
@@ -264,5 +264,7 @@ namespace Library.Services
                 .Include(ch => ch.LibraryCard)
                 .FirstOrDefault(ch => ch.LibraryAsset.Id == assetId);
         }
+
+
     }
 }
