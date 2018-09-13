@@ -14,9 +14,10 @@ namespace Library.Services
         void CheckOutItem(int assetId, int libraryCardId);
         void CheckInItem(int assetId, int libraryCardId);
         IEnumerable<CheckoutHistory> GetCheckoutHistories(int id);
+        Checkout GetLatestCheckout(int assetId);
 
         void PlaceHold(int assetId, int libraryCardId);
-        String GetCurrentHoldPatronName(int id);
+        String GetCurrentHoldPatronName(int holdId);
         DateTime GetCurrentHoldPlaced(int id);
         IEnumerable<Hold> GetHolds(int id);
 

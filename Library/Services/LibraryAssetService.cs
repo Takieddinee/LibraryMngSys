@@ -82,7 +82,9 @@ namespace Library.Services
 
         public string getType(int id)
         {
-            return "type";
+            var book = _context.LibraryAssets
+               .OfType<Book>().SingleOrDefault(a => a.Id == id);
+            return book != null ? "Book" : "Video";
         }
     }
 }
